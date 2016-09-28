@@ -54,6 +54,10 @@ The mean and median can be properly calculated and formatted as:
 mean <- format(mean(steps.per.day$sum.steps), nsmall=2)
 median <- format(median(steps.per.day$sum.steps), nsmall=2)
 ```
+```{r}
+mean
+median
+```
 So the mean of total number of steps taken per day is **`r mean`** and the median of the same is **`r median`**.
 
 ## What is the average daily activity pattern?
@@ -72,6 +76,7 @@ Which 5-minute interval, on average across all the days in the dataset, contains
 max.i <- which(steps.per.intv$avg.steps==max(steps.per.intv$avg.steps, na.rm = TRUE))
 max.intv <- steps.per.intv[max.i,]$interval
 max.steps <- format(steps.per.intv[max.i,]$avg.steps, nsmall=2)
+steps.per.intv[max.i,]
 ```
 We now know it is during interval **`r max.intv`** the average number of steps reaches maximum of **`r max.steps`**.
 
@@ -79,6 +84,7 @@ We now know it is during interval **`r max.intv`** the average number of steps r
 As we discussed earlier, there are a number of days/intervals where there are missing values (coded as NA). The presence of missing days may introduce bias into some calculations or summaries of the data.
 ```{r}
 na.sum <- sum(is.na(raw$steps))
+na.sum
 ```
 There are **`r na.sum`** missing values in total. We will impute these missing values by using the average number of steps for that interval across all days. We have already calculated this data:
 ```{r}
@@ -111,6 +117,10 @@ Now look at the mean and median:
 ```{r}
 mean.new <- format(mean(steps.per.day.new$sum.steps), nsmall=2)
 median.new <- format(median(steps.per.day.new$sum.steps), nsmall=2)
+```
+```{r}
+mean.new
+median.new
 ```
 So the new mean of total number of steps taken per day is **`r mean.new`** (vs. old mean = **`r mean`**) and the new median of the same is **`r median.new`** (vs. old median = **`r median`**). The imputing strategy used above has increased both the mean and median total number of steps per day.
 

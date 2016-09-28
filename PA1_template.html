@@ -177,6 +177,10 @@ qplot(sum.steps, data=steps.per.day) +
 <p>The mean and median can be properly calculated and formatted as:</p>
 <pre class="r"><code>mean &lt;- format(mean(steps.per.day$sum.steps), nsmall=2)
 median &lt;- format(median(steps.per.day$sum.steps), nsmall=2)</code></pre>
+<pre class="r"><code>mean</code></pre>
+<pre><code>## [1] &quot;9354.23&quot;</code></pre>
+<pre class="r"><code>median</code></pre>
+<pre><code>## [1] &quot;10395.00&quot;</code></pre>
 <p>So the mean of total number of steps taken per day is <strong>9354.23</strong> and the median of the same is <strong>10395.00</strong>.</p>
 </div>
 <div id="what-is-the-average-daily-activity-pattern" class="section level2">
@@ -190,13 +194,21 @@ median &lt;- format(median(steps.per.day$sum.steps), nsmall=2)</code></pre>
 <p>Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?</p>
 <pre class="r"><code>max.i &lt;- which(steps.per.intv$avg.steps==max(steps.per.intv$avg.steps, na.rm = TRUE))
 max.intv &lt;- steps.per.intv[max.i,]$interval
-max.steps &lt;- format(steps.per.intv[max.i,]$avg.steps, nsmall=2)</code></pre>
+max.steps &lt;- format(steps.per.intv[max.i,]$avg.steps, nsmall=2)
+steps.per.intv[max.i,]</code></pre>
+<pre><code>## Source: local data frame [1 x 2]
+## 
+##   interval avg.steps
+##      (int)     (dbl)
+## 1      835  206.1698</code></pre>
 <p>We now know it is during interval <strong>835</strong> the average number of steps reaches maximum of <strong>206.1698</strong>.</p>
 </div>
 <div id="imputing-missing-values" class="section level2">
 <h2>Imputing missing values</h2>
 <p>As we discussed earlier, there are a number of days/intervals where there are missing values (coded as NA). The presence of missing days may introduce bias into some calculations or summaries of the data.</p>
-<pre class="r"><code>na.sum &lt;- sum(is.na(raw$steps))</code></pre>
+<pre class="r"><code>na.sum &lt;- sum(is.na(raw$steps))
+na.sum</code></pre>
+<pre><code>## [1] 2304</code></pre>
 <p>There are <strong>2304</strong> missing values in total. We will impute these missing values by using the average number of steps for that interval across all days. We have already calculated this data:</p>
 <pre class="r"><code>head(steps.per.intv)</code></pre>
 <pre><code>## Source: local data frame [6 x 2]
@@ -238,6 +250,10 @@ qplot(sum.steps, data=steps.per.day.new) +
 <p>Now look at the mean and median:</p>
 <pre class="r"><code>mean.new &lt;- format(mean(steps.per.day.new$sum.steps), nsmall=2)
 median.new &lt;- format(median(steps.per.day.new$sum.steps), nsmall=2)</code></pre>
+<pre class="r"><code>mean.new</code></pre>
+<pre><code>## [1] &quot;10766.19&quot;</code></pre>
+<pre class="r"><code>median.new</code></pre>
+<pre><code>## [1] &quot;10766.19&quot;</code></pre>
 <p>So the new mean of total number of steps taken per day is <strong>10766.19</strong> (vs. old mean = <strong>9354.23</strong>) and the new median of the same is <strong>10766.19</strong> (vs. old median = <strong>10395.00</strong>). The imputing strategy used above has increased both the mean and median total number of steps per day.</p>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level1">

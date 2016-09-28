@@ -82,6 +82,22 @@ The mean and median can be properly calculated and formatted as:
 mean <- format(mean(steps.per.day$sum.steps), nsmall=2)
 median <- format(median(steps.per.day$sum.steps), nsmall=2)
 ```
+
+```r
+mean
+```
+
+```
+## [1] "9354.23"
+```
+
+```r
+median
+```
+
+```
+## [1] "10395.00"
+```
 So the mean of total number of steps taken per day is **9354.23** and the median of the same is **10395.00**.
 
 ## What is the average daily activity pattern?
@@ -97,7 +113,7 @@ ggplot(steps.per.intv, aes(interval, avg.steps)) + geom_line() +
     labs(x = "Interval#", y = "Average number of Steps", title = "Average Daily Activity")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
 Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -105,6 +121,15 @@ Which 5-minute interval, on average across all the days in the dataset, contains
 max.i <- which(steps.per.intv$avg.steps==max(steps.per.intv$avg.steps, na.rm = TRUE))
 max.intv <- steps.per.intv[max.i,]$interval
 max.steps <- format(steps.per.intv[max.i,]$avg.steps, nsmall=2)
+steps.per.intv[max.i,]
+```
+
+```
+## Source: local data frame [1 x 2]
+## 
+##   interval avg.steps
+##      (int)     (dbl)
+## 1      835  206.1698
 ```
 We now know it is during interval **835** the average number of steps reaches maximum of **206.1698**.
 
@@ -113,6 +138,11 @@ As we discussed earlier, there are a number of days/intervals where there are mi
 
 ```r
 na.sum <- sum(is.na(raw$steps))
+na.sum
+```
+
+```
+## [1] 2304
 ```
 There are **2304** missing values in total. We will impute these missing values by using the average number of steps for that interval across all days. We have already calculated this data:
 
@@ -176,13 +206,29 @@ qplot(sum.steps, data=steps.per.day.new) +
     ylab("Count of Days")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
 
 Now look at the mean and median:
 
 ```r
 mean.new <- format(mean(steps.per.day.new$sum.steps), nsmall=2)
 median.new <- format(median(steps.per.day.new$sum.steps), nsmall=2)
+```
+
+```r
+mean.new
+```
+
+```
+## [1] "10766.19"
+```
+
+```r
+median.new
+```
+
+```
+## [1] "10766.19"
 ```
 So the new mean of total number of steps taken per day is **10766.19** (vs. old mean = **9354.23**) and the new median of the same is **10766.19** (vs. old median = **10395.00**). The imputing strategy used above has increased both the mean and median total number of steps per day.
 
@@ -202,4 +248,4 @@ ggplot(steps.per.intv.new, aes(interval, avg.steps)) + geom_line() + facet_grid(
     labs(x = "Interval#", y = "Average number of Steps", title = "Average Daily Activity")
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-20-1.png)<!-- -->
